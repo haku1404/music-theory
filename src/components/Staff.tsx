@@ -42,7 +42,7 @@ export default function Staff({ note, status }: StaffProps) {
         clef: clef,
         keys: keys,
         duration: 'q',
-        auto_stem: true,
+        autoStem: true,
       });
 
       let color = 'var(--note-color)';

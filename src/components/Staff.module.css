@@ -3,57 +3,53 @@
   max-width: 500px;
   margin: 0 auto;
   background: var(--surface);
-  border-radius: 24px;
+  border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   border: 1px solid var(--border);
-  backdrop-filter: blur(16px);
+  transition: all 0.2s ease-in-out;
 }
 
-.svg {
-  width: 100%;
-  height: auto;
+.svgWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  /* VexFlow sets stroke/fill colors inline mostly, but we can target path if needed */
+}
+
+/* Make VexFlow elements respect theme */
+.svgWrapper :global(svg) {
   display: block;
 }
 
-.staffLine {
-  stroke: var(--staff-color);
-  stroke-width: 1.5;
-  stroke-linecap: round;
+@media (prefers-color-scheme: dark) {
+  .svgWrapper :global(path) {
+    fill: var(--note-color);
+    stroke: var(--note-color);
+  }
 }
 
-.clef {
-  fill: var(--staff-color);
-  font-size: 55px;
-  font-family: 'Times New Roman', serif;
+/* Animations */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
 }
 
-.clefBass {
-  fill: var(--staff-color);
-  font-size: 45px;
-  font-family: 'Times New Roman', serif;
+.shake {
+  animation: shake 0.4s ease-in-out;
+  border-color: var(--error);
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.3);
 }
 
-.noteGroup {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+@keyframes glow-success {
+  0% { box-shadow: 0 0 0px var(--success); }
+  50% { box-shadow: 0 0 20px var(--success); }
+  100% { box-shadow: 0 0 0px var(--success); }
 }
 
-.noteHead {
-  fill: var(--note-color);
-}
-
-.noteStem {
-  stroke: var(--note-color);
-  stroke-width: 2;
-  stroke-linecap: round;
-}
-
-.correct {
-  fill: var(--success);
-  stroke: var(--success);
-}
-
-.wrong {
-  fill: var(--error);
-  stroke: var(--error);
+.glowSuccess {
+  animation: glow-success 0.6s ease-out;
+  border-color: var(--success);
 }

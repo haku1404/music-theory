@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
-import { Note, getNoteY, getLedgerLines } from '../utils/music';
+import React, { useEffect, useRef } from 'react';
+import { Vex, Stave, StaveNote, Formatter } from 'vexflow';
+import { Note } from '../utils/music';
 import styles from './Staff.module.css';
 
 interface StaffProps {
@@ -10,51 +11,58 @@ interface StaffProps {
 }
 
 export default function Staff({ note, status }: StaffProps) {
-  // Staff lines are at Y = 20, 30, 40, 50, 60
-  const lines = [20, 30, 40, 50, 60];
-  
-  let noteY = 0;
-  let ledgerLines: number[] = [];
-  
-  if (note) {
-    noteY = getNoteY(note);
-    ledgerLines = getLedgerLines(note);
-  }
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    // Clear previous SVG
+    containerRef.current.innerHTML = '';
+
+    const renderer = new Vex.Flow.Renderer(
+      containerRef.current,
+      Vex.Flow.Renderer.Backends.SVG
+    );
+
+    // Responsive scaling based on container
+    renderer.resize(300, 150);
+    const context = renderer.getContext();
+    context.scale(1.5, 1.5); // scale up for better visibility
+
+    // Create a stave at position 10, 20 of width 180 on the canvas
+    const stave = new Stave(10, 10, 150);
+
+    const clef = note?.clef || 'treble';
+    stave.addClef(clef);
+    stave.setContext(context).draw();
+
+    if (note) {
+      // VexFlow note format e.g. "c/4"
+      const keys = [`${note.name.toLowerCase()}/${note.octave}`];
+      
+      const staveNote = new StaveNote({
+        clef: clef,
+        keys: keys,
+        duration: 'q',
+        auto_stem: true,
+      });
+
+      // Apply colors based on status
+      let color = 'var(--note-color)';
+      if (status === 'correct') color = '#38bdf8'; // var(--success)
+      if (status === 'wrong') color = '#f43f5e'; // var(--error)
+
+      staveNote.setStyle({ fillStyle: color, strokeStyle: color });
+
+      Formatter.FormatAndDraw(context, stave, [staveNote]);
+    }
+  }, [note, status]);
 
   return (
-    <div className={styles.staffContainer}>
-      <svg viewBox="0 -30 200 140" className={styles.svg}>
-        {/* Draw the 5 staff lines */}
-        {lines.map((y) => (
-          <line key={y} x1="0" y1={y} x2="200" y2={y} className={styles.staffLine} />
-        ))}
-        
-        {/* Draw the Clef */}
-        {note && note.clef === 'treble' && (
-          <text x="10" y="55" className={styles.clef}>𝄞</text>
-        )}
-        {note && note.clef === 'bass' && (
-          <text x="10" y="48" className={styles.clefBass}>𝄢</text>
-        )}
-
-        {/* Draw Ledger Lines */}
-        {ledgerLines.map((y) => (
-          <line key={y} x1="80" y1={y} x2="120" y2={y} className={styles.staffLine} />
-        ))}
-
-        {/* Draw the Note */}
-        {note && (
-          <g className={`${styles.noteGroup} ${status === 'correct' ? 'glow-success' : ''} ${status === 'wrong' ? 'shake' : ''}`}>
-            <ellipse cx="100" cy={noteY} rx="8" ry="5.5" transform={`rotate(-15 100 ${noteY})`} className={`${styles.noteHead} ${styles[status]}`} />
-            {/* Draw stem if needed (simplified: stem goes up if note is below middle line (y > 40), down if above) */}
-            {noteY > 40 ? (
-               <line x1="107" y1={noteY - 1} x2="107" y2={noteY - 32} className={`${styles.noteStem} ${styles[status]}`} />
-            ) : (
-               <line x1="93" y1={noteY + 1} x2="93" y2={noteY + 32} className={`${styles.noteStem} ${styles[status]}`} />
-            )}
-          </g>
-        )}
-      </svg>
+    <div 
+      className={`${styles.staffContainer} ${status === 'wrong' ? styles.shake : ''} ${status === 'correct' ? styles.glowSuccess : ''}`}
+    >
+      <div ref={containerRef} className={styles.svgWrapper} />
     </div>
   );
 }

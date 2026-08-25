@@ -1,0 +1,193 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+  gap: 1.5rem;
+  min-height: 100vh;
+}
+
+.header {
+  text-align: center;
+  width: 100%;
+  background: var(--surface);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border);
+}
+
+.headerTop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.header h1 {
+  font-size: 2.2rem;
+  color: var(--foreground);
+  font-family: serif;
+}
+
+.soundToggle {
+  background: var(--background);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+
+.soundToggle:hover {
+  background: var(--border);
+}
+
+.soundToggle.muted {
+  opacity: 0.6;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.scoreBadge, .streakBadge {
+  color: var(--surface);
+  background: var(--primary);
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+}
+
+.settingsGroup {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.toggleGroup {
+  display: flex;
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 4px;
+  border: 1px solid var(--border);
+}
+
+.toggleBtn {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  color: var(--foreground);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.toggleBtn:hover {
+  background: var(--background);
+}
+
+.toggleBtn.active {
+  background: var(--primary);
+  color: var(--surface);
+}
+
+.gameArea {
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+/* Piano key style buttons */
+.noteBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 1rem;
+  width: 60px;
+  height: 120px;
+  border-radius: 4px 4px 8px 8px;
+  background: #ffffff;
+  color: #121212;
+  border: 1px solid #dee2e6;
+  border-bottom: 4px solid #adb5bd;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.1s;
+}
+
+@media (prefers-color-scheme: dark) {
+  .noteBtn {
+    background: #e9ecef;
+    border-color: #ced4da;
+    border-bottom: 4px solid #6c757d;
+  }
+}
+
+.noteBtn:hover {
+  background: #f8f9fa;
+}
+
+.noteBtn:active {
+  transform: translateY(4px);
+  border-bottom-width: 0px;
+  height: 116px;
+  margin-bottom: 4px; /* maintain layout */
+}
+
+.noteLabelMain {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.noteLabelSub {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.hint {
+  margin-top: auto;
+  color: var(--foreground);
+  font-weight: 600;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  text-align: center;
+}
+
+/* Mobile optimizations */
+@media (max-width: 600px) {
+  .header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .noteBtn {
+    width: 50px;
+    height: 100px;
+  }
+  
+  .noteLabelMain {
+    font-size: 1.2rem;
+  }
+  
+  .controls {
+    gap: 0.4rem;
+  }
+}

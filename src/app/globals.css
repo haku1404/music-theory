@@ -1,0 +1,87 @@
+:root {
+  --background: #f8f9fa; /* Light gray background */
+  --foreground: #121212;
+  --primary: #212529; /* Dark gray/black for primary */
+  --primary-shadow: #000000;
+  --success: #38bdf8; /* Soft blue for correct to distinguish from piano keys */
+  --success-shadow: #0284c7;
+  --error: #f43f5e;
+  --error-shadow: #be123c;
+  --surface: #ffffff;
+  --border: #dee2e6;
+  --staff-color: #212529;
+  --note-color: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #121212;
+    --foreground: #f8f9fa;
+    --primary: #f8f9fa; 
+    --primary-shadow: #ced4da;
+    --success: #38bdf8;
+    --success-shadow: #0284c7;
+    --error: #f43f5e;
+    --error-shadow: #be123c;
+    --surface: #212529;
+    --border: #495057;
+    --staff-color: #f8f9fa;
+    --note-color: #ffffff;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  outline: none;
+}
+
+/* Glassmorphism utility removed for clean flat look */
+.glass {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Animations */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes glow-success {
+  0% { box-shadow: 0 0 0px var(--success); }
+  50% { box-shadow: 0 0 15px var(--success); }
+  100% { box-shadow: 0 0 0px var(--success); }
+}
+
+.glow-success {
+  animation: glow-success 0.6s ease-out;
+}

@@ -1,0 +1,61 @@
+.staffContainer {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  background: var(--surface);
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.staffLine {
+  stroke: var(--staff-color);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.clef {
+  fill: var(--staff-color);
+  font-size: 55px;
+  font-family: 'Times New Roman', serif;
+}
+
+.clefBass {
+  fill: var(--staff-color);
+  font-size: 45px;
+  font-family: 'Times New Roman', serif;
+}
+
+.noteGroup {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.noteHead {
+  fill: var(--note-color);
+  transform: rotate(-20deg);
+  transform-origin: 100px center;
+}
+
+.noteStem {
+  stroke: var(--note-color);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.correct {
+  fill: var(--success);
+  stroke: var(--success);
+}
+
+.wrong {
+  fill: var(--error);
+  stroke: var(--error);
+}

@@ -53,3 +53,9 @@
   animation: glow-success 0.6s ease-out;
   border-color: var(--success);
 }
+
+@media (max-width: 600px) {
+  .staffContainer {
+    padding: 10px;
+  }
+}

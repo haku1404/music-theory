@@ -25,11 +25,12 @@ export default function Staff({ note, status }: StaffProps) {
     );
 
     // Use a tighter virtual size for drawing to effectively "zoom in" the SVG
-    renderer.resize(180, 150);
+    // and minimize vertical empty space
+    renderer.resize(160, 120);
     const context = renderer.getContext();
 
-    // Create a stave at x=10, y=40 of width 160
-    const stave = new Stave(10, 40, 160);
+    // Create a stave at x=5, y=25 of width 150
+    const stave = new Stave(5, 25, 150);
 
     const clef = note?.clef || 'treble';
     stave.addClef(clef);
@@ -58,7 +59,7 @@ export default function Staff({ note, status }: StaffProps) {
     // Make SVG responsive
     const svg = containerRef.current.querySelector('svg');
     if (svg) {
-      svg.setAttribute('viewBox', '0 0 180 150');
+      svg.setAttribute('viewBox', '0 0 160 120');
       svg.setAttribute('width', '100%');
       svg.setAttribute('height', '100%');
     }

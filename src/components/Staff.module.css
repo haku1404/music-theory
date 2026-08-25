@@ -11,16 +11,16 @@
 }
 
 .svgWrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  text-align: center;
   overflow: hidden;
-  /* VexFlow sets stroke/fill colors inline mostly, but we can target path if needed */
 }
 
-/* Make VexFlow elements respect theme */
+/* Make VexFlow elements respect theme and scale properly */
 .svgWrapper :global(svg) {
   display: block;
+  width: 100%;
+  height: auto;
 }
 
 @media (prefers-color-scheme: dark) {

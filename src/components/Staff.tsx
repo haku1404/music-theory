@@ -25,12 +25,12 @@ export default function Staff({ note, status }: StaffProps) {
     );
 
     // Responsive scaling based on container
-    renderer.resize(300, 150);
+    renderer.resize(350, 200);
     const context = renderer.getContext();
     context.scale(1.5, 1.5); // scale up for better visibility
 
-    // Create a stave at position 10, 20 of width 180 on the canvas
-    const stave = new Stave(10, 10, 150);
+    // Create a stave at position 10, 40 of width 150 on the canvas
+    const stave = new Stave(10, 40, 150);
 
     const clef = note?.clef || 'treble';
     stave.addClef(clef);

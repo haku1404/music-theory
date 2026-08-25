@@ -45,12 +45,12 @@ export default function Staff({ note, status }: StaffProps) {
         {/* Draw the Note */}
         {note && (
           <g className={`${styles.noteGroup} ${status === 'correct' ? 'glow-success' : ''} ${status === 'wrong' ? 'shake' : ''}`}>
-            <ellipse cx="100" cy={noteY} rx="7" ry="5" className={`${styles.noteHead} ${styles[status]}`} />
+            <ellipse cx="100" cy={noteY} rx="8" ry="5.5" transform={`rotate(-15 100 ${noteY})`} className={`${styles.noteHead} ${styles[status]}`} />
             {/* Draw stem if needed (simplified: stem goes up if note is below middle line (y > 40), down if above) */}
             {noteY > 40 ? (
-               <line x1="106" y1={noteY} x2="106" y2={noteY - 25} className={`${styles.noteStem} ${styles[status]}`} />
+               <line x1="107" y1={noteY - 1} x2="107" y2={noteY - 32} className={`${styles.noteStem} ${styles[status]}`} />
             ) : (
-               <line x1="94" y1={noteY} x2="94" y2={noteY + 25} className={`${styles.noteStem} ${styles[status]}`} />
+               <line x1="93" y1={noteY + 1} x2="93" y2={noteY + 32} className={`${styles.noteStem} ${styles[status]}`} />
             )}
           </g>
         )}

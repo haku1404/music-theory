@@ -40,8 +40,6 @@
 
 .noteHead {
   fill: var(--note-color);
-  transform: rotate(-20deg);
-  transform-origin: 100px center;
 }
 
 .noteStem {

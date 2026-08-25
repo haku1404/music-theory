@@ -24,20 +24,18 @@ export default function Staff({ note, status }: StaffProps) {
       RendererBackends.SVG
     );
 
-    // Responsive scaling based on container
-    renderer.resize(350, 200);
+    // Use a fixed virtual size for drawing, then scale via viewBox
+    renderer.resize(300, 160);
     const context = renderer.getContext();
-    context.scale(1.5, 1.5); // scale up for better visibility
 
-    // Create a stave at position 10, 40 of width 150 on the canvas
-    const stave = new Stave(10, 40, 150);
+    // Create a stave at x=50, y=40 of width 200 to center it horizontally
+    const stave = new Stave(50, 40, 200);
 
     const clef = note?.clef || 'treble';
     stave.addClef(clef);
     stave.setContext(context).draw();
 
     if (note) {
-      // VexFlow note format e.g. "c/4"
       const keys = [`${note.name.toLowerCase()}/${note.octave}`];
       
       const staveNote = new StaveNote({
@@ -47,14 +45,22 @@ export default function Staff({ note, status }: StaffProps) {
         auto_stem: true,
       });
 
-      // Apply colors based on status
       let color = 'var(--note-color)';
-      if (status === 'correct') color = '#38bdf8'; // var(--success)
-      if (status === 'wrong') color = '#f43f5e'; // var(--error)
+      if (status === 'correct') color = '#38bdf8';
+      if (status === 'wrong') color = '#f43f5e';
 
       staveNote.setStyle({ fillStyle: color, strokeStyle: color });
 
+      // Format and draw
       Formatter.FormatAndDraw(context, stave, [staveNote]);
+    }
+
+    // Make SVG responsive
+    const svg = containerRef.current.querySelector('svg');
+    if (svg) {
+      svg.setAttribute('viewBox', '0 0 300 160');
+      svg.setAttribute('width', '100%');
+      svg.setAttribute('height', '100%');
     }
   }, [note, status]);
 

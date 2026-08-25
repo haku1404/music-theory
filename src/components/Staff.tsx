@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import { Vex, Stave, StaveNote, Formatter } from 'vexflow';
+import { Renderer, RendererBackends, Stave, StaveNote, Formatter } from 'vexflow';
 import { Note } from '../utils/music';
 import styles from './Staff.module.css';
 
@@ -19,9 +19,9 @@ export default function Staff({ note, status }: StaffProps) {
     // Clear previous SVG
     containerRef.current.innerHTML = '';
 
-    const renderer = new Vex.Flow.Renderer(
+    const renderer = new Renderer(
       containerRef.current,
-      Vex.Flow.Renderer.Backends.SVG
+      RendererBackends.SVG
     );
 
     // Responsive scaling based on container

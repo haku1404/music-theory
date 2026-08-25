@@ -24,12 +24,13 @@ export default function Staff({ note, status }: StaffProps) {
       RendererBackends.SVG
     );
 
-    // Use a standard 200x160 coordinate system. CSS will scale it to 100%.
-    renderer.resize(200, 160);
+    // Use a compact virtual size (120x160) to center the single note and clef,
+    // scaling them up significantly without empty staff lines on the right.
+    renderer.resize(120, 160);
     const context = renderer.getContext();
 
-    // Create a stave at x=10, y=40 of width 180
-    const stave = new Stave(10, 40, 180);
+    // Create a stave at x=10, y=50 of width 100
+    const stave = new Stave(10, 50, 100);
 
     const clef = note?.clef || 'treble';
     stave.addClef(clef);
@@ -58,7 +59,7 @@ export default function Staff({ note, status }: StaffProps) {
     // Make SVG responsive
     const svg = containerRef.current.querySelector('svg');
     if (svg) {
-      svg.setAttribute('viewBox', '0 0 200 160');
+      svg.setAttribute('viewBox', '0 0 120 160');
       svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
       svg.removeAttribute('width');
       svg.removeAttribute('height');

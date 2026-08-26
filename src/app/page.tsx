@@ -17,6 +17,7 @@ const DURATION_MS: Record<NoteDuration, number> = {
   '8': 300,
   'q': 600,
   'h': 1200,
+  'hd': 1800,
   'w': 2400
 };
 

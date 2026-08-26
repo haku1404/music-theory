@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import { Renderer, RendererBackends, Stave, StaveNote, Formatter } from 'vexflow';
+import { Renderer, RendererBackends, Stave, StaveNote, Formatter, Dot } from 'vexflow';
 import { Song } from '../data/songs';
 import styles from './SheetStaff.module.css';
 
@@ -38,9 +38,14 @@ export default function SheetStaff({ song, currentIndex }: SheetStaffProps) {
       const staveNote = new StaveNote({
         clef: song.clef,
         keys: keys,
-        duration: note.duration,
+        duration: note.duration.replace('d', ''),
         autoStem: true
       });
+      
+      if (note.duration.includes('d')) {
+        Dot.buildAndAttach([staveNote], { all: true });
+      }
+
       
       // Styling logic based on progress
       if (index === currentIndex) {

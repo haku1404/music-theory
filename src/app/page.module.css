@@ -27,36 +27,74 @@
   margin-bottom: 1.5rem;
 }
 
-.tabs {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-  width: 100%;
-  flex-wrap: wrap;
+.header h1 {
+  font-size: 2.2rem;
+  color: var(--foreground);
+  font-family: serif;
 }
 
-.tabBtn {
+.subtitle {
+  color: var(--foreground);
+  opacity: 0.7;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.backBtn {
   background: transparent;
   border: none;
-  padding: 0.6rem 1rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--foreground);
-  opacity: 0.6;
-  border-bottom: 2px solid transparent;
-  transition: all 0.2s;
-  cursor: pointer;
-}
-
-.tabBtn:hover {
-  opacity: 1;
-}
-
-.tabBtn.tabActive {
-  opacity: 1;
   color: var(--primary);
-  border-bottom: 2px solid var(--primary);
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  align-self: flex-start;
+  padding: 0;
+}
+
+.backBtn:hover {
+  text-decoration: underline;
+}
+
+.gridMenu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.menuCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.menuCard:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
+}
+
+.cardIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.menuCard h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+}
+
+.menuCard p {
+  font-size: 0.9rem;
+  color: var(--foreground);
+  opacity: 0.7;
+  line-height: 1.4;
 }
 
 .header h1 {
@@ -242,4 +280,87 @@
     gap: 0.5rem;
     padding: 0 0.5rem;
   }
+}
+
+.songCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.songCard:hover {
+  transform: translateX(4px);
+  border-color: var(--primary);
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.songCard h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+}
+
+.songCard p {
+  font-size: 0.9rem;
+  color: var(--foreground);
+  opacity: 0.7;
+}
+
+/* Animations for pressing and holding */
+.noteBtn {
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.pressing {
+  transform: translateY(4px);
+  border-bottom-width: 0px;
+  height: 116px;
+  margin-bottom: 4px;
+}
+
+.holdProgress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(56, 189, 248, 0.2);
+  transform-origin: bottom;
+  animation: holdFill var(--hold-time, 1s) linear forwards;
+  z-index: 0;
+}
+
+@keyframes holdFill {
+  from { transform: scaleY(0); background: rgba(56, 189, 248, 0.2); }
+  to { transform: scaleY(1); background: rgba(56, 189, 248, 0.6); }
+}
+
+.noteLabelMain, .noteLabelSub {
+  position: relative;
+  z-index: 1;
+}
+
+.noteBtn * {
+  pointer-events: none;
+}
+
+@keyframes errorShake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); background: #fee2e2; border-color: #f87171; }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+.errorShake {
+  animation: errorShake 0.4s ease-in-out;
 }

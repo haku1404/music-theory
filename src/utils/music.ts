@@ -129,8 +129,6 @@ export const ensureAudioRunning = async () => {
   }
 };
 
-let pianoSampler: Tone.Sampler | null = null;
-
 export const initAudio = async () => {
   if (typeof window === 'undefined') return;
   if (pianoSampler) return;

@@ -114,14 +114,7 @@ export const getLedgerLines = (note: Note): number[] => {
 import * as Tone from 'tone';
 
 let pianoSampler: Tone.Sampler | null = null;
-let isSoundEnabled = true;
-
-export const setSoundEnabled = (enabled: boolean) => {
-  isSoundEnabled = enabled;
-};
-
-export const getSoundEnabled = () => isSoundEnabled;
-
+// Sound is now permanently enabled
 export const ensureAudioRunning = async () => {
   if (typeof window === 'undefined') return;
   if (Tone.context.state !== 'running') {
@@ -154,7 +147,7 @@ export const initAudio = async () => {
 };
 
 export const playNote = async (note: Note) => {
-  if (!isSoundEnabled || typeof window === 'undefined') return;
+  if (typeof window === 'undefined') return;
   
   await ensureAudioRunning();
   
@@ -168,7 +161,7 @@ export const playNote = async (note: Note) => {
 };
 
 export const playWrongSound = async () => {
-  if (!isSoundEnabled || typeof window === 'undefined') return;
+  if (typeof window === 'undefined') return;
 
   await ensureAudioRunning();
   

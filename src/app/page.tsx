@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Staff from '../components/Staff';
-import { Note, NoteName, VI_NAMES, getRandomNote, playNote, playWrongSound, initAudio, setSoundEnabled, getSoundEnabled, ensureAudioRunning } from '../utils/music';
+import { Note, NoteName, VI_NAMES, getRandomNote, playNote, playWrongSound, initAudio, ensureAudioRunning } from '../utils/music';
 import styles from './page.module.css';
 
 const ALL_NOTES: NoteName[] = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
@@ -14,18 +14,10 @@ export default function Home() {
   const [streak, setStreak] = useState(0);
   const [notation, setNotation] = useState<'abc' | 'vi'>('abc');
   const [clefSetting, setClefSetting] = useState<'treble' | 'bass' | 'both'>('treble');
-  const [soundOn, setSoundOn] = useState(true);
 
   useEffect(() => {
     nextNote();
   }, [clefSetting]);
-
-  const toggleSoundState = () => {
-    ensureAudioRunning();
-    const newState = !soundOn;
-    setSoundOn(newState);
-    setSoundEnabled(newState);
-  };
 
   const nextNote = () => {
     setCurrentNote(getRandomNote(clefSetting));
@@ -61,9 +53,6 @@ export default function Home() {
       <div className={styles.header}>
         <div className={styles.headerTop}>
           <h1>Haku Music theory</h1>
-          <button className={`${styles.soundToggle} ${!soundOn ? styles.muted : ''}`} onClick={toggleSoundState}>
-            {soundOn ? 'Âm thanh: Bật' : 'Âm thanh: Tắt'}
-          </button>
         </div>
         <div className={styles.stats}>
           <div className={styles.scoreBadge}>Điểm: {score}</div>

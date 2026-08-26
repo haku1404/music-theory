@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import { Renderer, RendererBackends, Stave, StaveNote, Formatter, Dot } from 'vexflow';
+import { Renderer, RendererBackends, Stave, StaveNote, Formatter, Dot, BarNote } from 'vexflow';
 import { Song } from '../data/songs';
 import styles from './SheetStaff.module.css';
 
@@ -33,7 +33,23 @@ export default function SheetStaff({ song, currentIndex }: SheetStaffProps) {
     stave.addClef(song.clef).addTimeSignature(song.timeSignature);
     stave.setContext(context).draw();
     
-    const vexNotes = song.notes.map((note, index) => {
+    const getBeats = (duration: string) => {
+      if (duration === 'w') return 4;
+      if (duration === 'h') return 2;
+      if (duration === 'hd') return 3;
+      if (duration === 'q') return 1;
+      if (duration === '8') return 0.5;
+      if (duration === '16') return 0.25;
+      return 1;
+    };
+
+    const vexNotes: any[] = [];
+    let currentBeats = 0;
+    
+    // Giả định bài nhạc 4/4 cho các bài tập hiện tại
+    const beatsPerMeasure = 4;
+
+    song.notes.forEach((note, index) => {
       const keys = [`${note.name.toLowerCase()}/${note.octave}`];
       const staveNote = new StaveNote({
         clef: song.clef,
@@ -45,7 +61,6 @@ export default function SheetStaff({ song, currentIndex }: SheetStaffProps) {
       if (note.duration.includes('d')) {
         Dot.buildAndAttach([staveNote], { all: true });
       }
-
       
       // Styling logic based on progress
       if (index === currentIndex) {
@@ -56,7 +71,14 @@ export default function SheetStaff({ song, currentIndex }: SheetStaffProps) {
         staveNote.setStyle({ fillStyle: 'var(--note-color)', strokeStyle: 'var(--note-color)' });
       }
       
-      return staveNote;
+      vexNotes.push(staveNote);
+
+      // Thêm vạch kẻ nhịp (Bar line)
+      currentBeats += getBeats(note.duration);
+      if (currentBeats >= beatsPerMeasure && index < song.notes.length - 1) {
+        vexNotes.push(new BarNote());
+        currentBeats = 0; // Reset cho ô nhịp tiếp theo
+      }
     });
     
     // Draw all notes on the stave

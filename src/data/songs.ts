@@ -105,12 +105,28 @@ export const SONGS: Song[] = [
     ]
   },
   {
-    id: 'suzon-methode-rose',
-    title: 'Suzon (Methode Rose)',
+    id: 'suzon-methode-rose-rh',
+    title: 'Suzon (Tay Phải - Khóa Sol)',
     level: 2,
     clef: 'treble',
     timeSignature: 'C',
     notes: [
+      { name: 'G', octave: 4, duration: 'hd' },
+      { name: 'G', octave: 4, duration: 'q' },
+      { name: 'E', octave: 4, duration: 'hd' },
+      { name: 'E', octave: 4, duration: 'q' },
+      { name: 'F', octave: 4, duration: 'hd' },
+      { name: 'F', octave: 4, duration: 'q' },
+      { name: 'D', octave: 4, duration: 'w' },
+      
+      { name: 'G', octave: 4, duration: 'hd' },
+      { name: 'G', octave: 4, duration: 'q' },
+      { name: 'A', octave: 4, duration: 'hd' },
+      { name: 'A', octave: 4, duration: 'q' },
+      { name: 'B', octave: 4, duration: 'hd' },
+      { name: 'G', octave: 4, duration: 'q' },
+      { name: 'D', octave: 5, duration: 'w' },
+      
       { name: 'C', octave: 5, duration: 'hd' },
       { name: 'C', octave: 5, duration: 'q' },
       { name: 'B', octave: 4, duration: 'hd' },
@@ -118,22 +134,71 @@ export const SONGS: Song[] = [
       { name: 'A', octave: 4, duration: 'hd' },
       { name: 'A', octave: 4, duration: 'q' },
       { name: 'G', octave: 4, duration: 'w' },
+    ]
+  },
+  {
+    id: 'suzon-methode-rose-lh',
+    title: 'Suzon (Tay Trái - Khóa Fa)',
+    level: 2,
+    clef: 'bass',
+    timeSignature: 'C',
+    notes: [
+      { name: 'C', octave: 3, duration: 'q' },
+      { name: 'E', octave: 3, duration: 'q' },
+      { name: 'G', octave: 3, duration: 'q' },
+      { name: 'E', octave: 3, duration: 'q' },
       
-      { name: 'C', octave: 5, duration: 'hd' },
-      { name: 'C', octave: 5, duration: 'q' },
-      { name: 'D', octave: 5, duration: 'hd' },
-      { name: 'D', octave: 5, duration: 'q' },
-      { name: 'E', octave: 5, duration: 'hd' },
-      { name: 'C', octave: 5, duration: 'q' },
-      { name: 'G', octave: 4, duration: 'w' },
+      { name: 'G', octave: 2, duration: 'q' },
+      { name: 'B', octave: 2, duration: 'q' },
+      { name: 'D', octave: 3, duration: 'q' },
+      { name: 'B', octave: 2, duration: 'q' },
       
-      { name: 'F', octave: 4, duration: 'hd' },
-      { name: 'F', octave: 4, duration: 'q' },
-      { name: 'E', octave: 4, duration: 'hd' },
-      { name: 'E', octave: 4, duration: 'q' },
-      { name: 'D', octave: 4, duration: 'hd' },
-      { name: 'D', octave: 4, duration: 'q' },
-      { name: 'C', octave: 4, duration: 'w' },
+      { name: 'C', octave: 3, duration: 'q' },
+      { name: 'E', octave: 3, duration: 'q' },
+      { name: 'G', octave: 3, duration: 'q' },
+      { name: 'E', octave: 3, duration: 'q' },
+      
+      { name: 'G', octave: 2, duration: 'q' },
+      { name: 'B', octave: 2, duration: 'q' },
+      { name: 'D', octave: 3, duration: 'q' },
+      { name: 'B', octave: 2, duration: 'q' },
+      
+      { name: 'C', octave: 3, duration: 'q' },
+      { name: 'E', octave: 3, duration: 'q' },
+      { name: 'G', octave: 3, duration: 'q' },
+      { name: 'E', octave: 3, duration: 'q' },
+      
+      { name: 'C', octave: 3, duration: 'q' },
+      { name: 'F', octave: 3, duration: 'q' },
+      { name: 'A', octave: 3, duration: 'q' },
+      { name: 'F', octave: 3, duration: 'q' },
+      
+      { name: 'G', octave: 2, duration: 'q' },
+      { name: 'D', octave: 3, duration: 'q' },
+      { name: 'F', octave: 3, duration: 'q' },
+      { name: 'D', octave: 3, duration: 'q' },
+      
+      { name: 'G', octave: 2, duration: 'q' },
+      { name: 'B', octave: 2, duration: 'q' },
+      { name: 'D', octave: 3, duration: 'q' },
+      { name: 'B', octave: 2, duration: 'q' },
+      
+      { name: 'A', octave: 2, duration: 'q' },
+      { name: 'C', octave: 3, duration: 'q' },
+      { name: 'E', octave: 3, duration: 'q' },
+      { name: 'C', octave: 3, duration: 'q' },
+      
+      { name: 'G', octave: 2, duration: 'q' },
+      { name: 'B', octave: 2, duration: 'q' },
+      { name: 'D', octave: 3, duration: 'q' },
+      { name: 'B', octave: 2, duration: 'q' },
+      
+      { name: 'F', octave: 2, duration: 'q' },
+      { name: 'A', octave: 2, duration: 'q' },
+      { name: 'C', octave: 3, duration: 'q' },
+      { name: 'A', octave: 2, duration: 'q' },
+      
+      { name: 'C', octave: 3, duration: 'w' },
     ]
   }
 ];

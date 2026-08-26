@@ -13,11 +13,11 @@ const INTERVALS = ['2', '3', '4', '5', '6', '7', '8'];
 type AppMode = 'home' | 'sight-reading' | 'intervals' | 'ear-training' | 'sheet-music';
 
 const DURATION_MS: Record<NoteDuration, number> = {
-  '16': 200,
-  '8': 400,
-  'q': 800,
-  'h': 1600,
-  'w': 3200
+  '16': 150,
+  '8': 300,
+  'q': 600,
+  'h': 1200,
+  'w': 2400
 };
 
 export default function Home() {

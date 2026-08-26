@@ -62,6 +62,7 @@ export default function SheetStaff({ song, currentIndex }: SheetStaffProps) {
     if (svg) {
       svg.style.maxHeight = '180px';
       svg.style.height = '180px';
+      svg.style.minWidth = `${totalWidth}px`; // Bắt buộc giữ nguyên chiều rộng thực, không bị thu nhỏ
       
       // Auto-scroll logic
       const scrollParent = containerRef.current.parentElement;

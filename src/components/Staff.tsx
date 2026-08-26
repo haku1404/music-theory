@@ -24,13 +24,14 @@ export default function Staff({ note, status }: StaffProps) {
       RendererBackends.SVG
     );
 
-    // Use a compact virtual size (120x160) to center the single note and clef,
-    // scaling them up significantly without empty staff lines on the right.
-    renderer.resize(120, 160);
+    // Use an extremely tight virtual size to eliminate all empty space.
+    renderer.resize(100, 140);
     const context = renderer.getContext();
 
-    // Create a stave at x=10, y=50 of width 100
-    const stave = new Stave(10, 50, 100);
+    // Create a stave at x=10, y=30 of width 80.
+    // This perfectly wraps the Clef and the single Note, removing the empty 
+    // staff lines on the right that caused it to look "skewed to the left".
+    const stave = new Stave(10, 30, 80);
 
     const clef = note?.clef || 'treble';
     stave.addClef(clef);
@@ -59,11 +60,14 @@ export default function Staff({ note, status }: StaffProps) {
     // Make SVG responsive and tightly cropped
     const svg = containerRef.current.querySelector('svg');
     if (svg) {
-      // Crop vertical empty space: start y at 20, height 120
-      svg.setAttribute('viewBox', '0 20 120 120');
+      // Crop vertical empty space tightly around y=10 to y=130
+      svg.setAttribute('viewBox', '0 10 100 120');
       svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
       svg.removeAttribute('width');
       svg.removeAttribute('height');
+      svg.style.width = '100%';
+      svg.style.height = 'auto';
+      svg.style.maxHeight = '220px';
     }
   }, [note, status]);
 

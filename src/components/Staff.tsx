@@ -56,10 +56,11 @@ export default function Staff({ note, status }: StaffProps) {
       Formatter.FormatAndDraw(context, stave, [staveNote]);
     }
 
-    // Make SVG responsive
+    // Make SVG responsive and tightly cropped
     const svg = containerRef.current.querySelector('svg');
     if (svg) {
-      svg.setAttribute('viewBox', '0 0 120 160');
+      // Crop vertical empty space: start y at 20, height 120
+      svg.setAttribute('viewBox', '0 20 120 120');
       svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
       svg.removeAttribute('width');
       svg.removeAttribute('height');

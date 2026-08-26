@@ -122,6 +122,11 @@ export const setSoundEnabled = (enabled: boolean) => {
 
 export const getSoundEnabled = () => isSoundEnabled;
 
+export const unlockAudio = async () => {
+  if (typeof window === 'undefined') return;
+  await Tone.start();
+};
+
 export const initAudio = async () => {
   if (typeof window === 'undefined') return;
   if (pianoSampler) return;

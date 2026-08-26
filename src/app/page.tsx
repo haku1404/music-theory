@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Staff from '../components/Staff';
-import { Note, NoteName, VI_NAMES, getRandomNote, playNote, playWrongSound, initAudio, setSoundEnabled, getSoundEnabled } from '../utils/music';
+import { Note, NoteName, VI_NAMES, getRandomNote, playNote, playWrongSound, initAudio, setSoundEnabled, getSoundEnabled, unlockAudio } from '../utils/music';
 import styles from './page.module.css';
 
 const ALL_NOTES: NoteName[] = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
@@ -21,6 +21,7 @@ export default function Home() {
   }, [clefSetting]);
 
   const toggleSoundState = () => {
+    unlockAudio();
     const newState = !soundOn;
     setSoundOn(newState);
     setSoundEnabled(newState);
@@ -34,7 +35,10 @@ export default function Home() {
   const handleAnswer = async (answerName: NoteName) => {
     if (!currentNote) return;
     
-    // Initialize audio context on first interaction if not already done
+    // Unlock Web Audio API context synchronously on user interaction
+    unlockAudio();
+    
+    // Initialize audio samples on first interaction if not already done
     await initAudio();
     
     if (answerName === currentNote.name) {

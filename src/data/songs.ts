@@ -200,5 +200,21 @@ export const SONGS: Song[] = [
       
       { name: 'C', octave: 3, duration: 'w' },
     ]
+  },
+  {
+    id: 'bai-tap-mi-fa',
+    title: 'Bài tập khởi động Mi - Fa (Methode Rose)',
+    level: 2,
+    clef: 'treble',
+    timeSignature: 'C',
+    notes: [
+      { name: 'E', octave: 5, duration: 'hd' },
+      { name: 'E', octave: 5, duration: 'q' },
+      { name: 'F', octave: 5, duration: 'hd' },
+      { name: 'F', octave: 5, duration: 'q' },
+      { name: 'E', octave: 5, duration: 'hd' },
+      { name: 'E', octave: 5, duration: 'q' },
+      { name: 'D', octave: 5, duration: 'w' }, // D5 (dòng 4)
+    ]
   }
 ];

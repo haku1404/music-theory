@@ -54,7 +54,7 @@ export default function Home() {
     }
   }, [currentNotes, mode, status]);
 
-  const generateQuestion = () => {
+  function generateQuestion() {
     setStatus('idle');
     if (mode === 'sight-reading' || mode === 'ear-training') {
       const note = getRandomNote(clefSetting);

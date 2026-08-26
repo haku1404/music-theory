@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vexflow@4.2.2/build/cjs/vexflow.js"></script>
+</head>
+<body>
+  <div id="output"></div>
+  <script>
+    const VF = Vex.Flow;
+    const div = document.getElementById("output");
+    const renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
+    renderer.resize(500, 200);
+    const context = renderer.getContext();
+    const stave = new VF.Stave(10, 40, 400);
+    stave.addClef("treble").setContext(context).draw();
+    const note = new VF.StaveNote({ clef: "treble", keys: ["g/4"], duration: "q" });
+    VF.Formatter.FormatAndDraw(context, stave, [note]);
+  </script>
+</body>
+</html>

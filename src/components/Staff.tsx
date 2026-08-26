@@ -60,14 +60,14 @@ export default function Staff({ note, status }: StaffProps) {
     // Make SVG responsive and tightly cropped
     const svg = containerRef.current.querySelector('svg');
     if (svg) {
-      // Crop vertical empty space tightly around y=10 to y=130
-      svg.setAttribute('viewBox', '0 10 100 120');
+      // Shift viewBox Y down (to 20) to crop top padding, moving the staff UP visually.
+      svg.setAttribute('viewBox', '0 20 100 120');
       svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
       svg.removeAttribute('width');
       svg.removeAttribute('height');
       svg.style.width = '100%';
       svg.style.height = 'auto';
-      svg.style.maxHeight = '220px';
+      svg.style.maxHeight = '280px';
     }
   }, [note, status]);
 

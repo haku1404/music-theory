@@ -4,9 +4,11 @@
   align-items: center;
   padding: 2rem 1rem;
   max-width: 800px;
+  width: 100%;
   margin: 0 auto;
   gap: 1.5rem;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .header {
@@ -191,6 +193,7 @@
 
 .gameArea {
   width: 100%;
+  max-width: 100%;
   margin: 0.5rem 0;
 }
 

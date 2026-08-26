@@ -129,25 +129,28 @@ export const ensureAudioRunning = async () => {
   }
 };
 
-let synth: Tone.PolySynth | null = null;
+let pianoSampler: Tone.Sampler | null = null;
 
 export const initAudio = async () => {
   if (typeof window === 'undefined') return;
-  if (synth) return;
+  if (pianoSampler) return;
 
-  // Use a synthesized piano instead of downloading 30 MP3 files
-  // This guarantees instant playback on mobile networks without 10s delays!
-  synth = new Tone.PolySynth(Tone.Synth).toDestination();
-  synth.set({
-    oscillator: { type: 'triangle' }, // Triangle wave sounds close to an electric piano
-    envelope: {
-      attack: 0.005,
-      decay: 0.1,
-      sustain: 0.3,
-      release: 1
+  // Load just 5 key MP3 files (300KB total) from the local server.
+  // Tone.js will automatically pitch-shift these to cover all 88 keys.
+  // This gives high-quality Grand Piano sound instantly without network delay.
+  pianoSampler = new Tone.Sampler({
+    urls: {
+      C2: "C2.mp3",
+      C3: "C3.mp3",
+      C4: "C4.mp3",
+      C5: "C5.mp3",
+      C6: "C6.mp3"
     },
-    volume: -5
-  });
+    release: 1,
+    baseUrl: "/audio/piano/"
+  }).toDestination();
+  
+  await Tone.loaded();
 };
 
 export const playNote = async (note: Note) => {
@@ -155,12 +158,12 @@ export const playNote = async (note: Note) => {
   
   await ensureAudioRunning();
   
-  if (!synth) {
+  if (!pianoSampler) {
     await initAudio();
   }
   
-  if (synth) {
-    synth.triggerAttackRelease(`${note.name}${note.octave}`, "4n");
+  if (pianoSampler && pianoSampler.loaded) {
+    pianoSampler.triggerAttackRelease(`${note.name}${note.octave}`, "2n");
   }
 };
 

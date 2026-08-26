@@ -62,7 +62,7 @@ export default function Home() {
         <div className={styles.headerTop}>
           <h1>Haku Music theory</h1>
           <button className={`${styles.soundToggle} ${!soundOn ? styles.muted : ''}`} onClick={toggleSoundState}>
-            {soundOn ? 'Bật âm thanh' : 'Tắt âm thanh'}
+            {soundOn ? 'Âm thanh: Bật' : 'Âm thanh: Tắt'}
           </button>
         </div>
         <div className={styles.stats}>

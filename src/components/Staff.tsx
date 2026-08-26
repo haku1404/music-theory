@@ -6,11 +6,12 @@ import { Note } from '../utils/music';
 import styles from './Staff.module.css';
 
 interface StaffProps {
-  note: Note | null;
+  notes?: Note[];
   status: 'idle' | 'correct' | 'wrong';
+  hidden?: boolean;
 }
 
-export default function Staff({ note, status }: StaffProps) {
+export default function Staff({ notes = [], status, hidden = false }: StaffProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -33,12 +34,12 @@ export default function Staff({ note, status }: StaffProps) {
     // staff lines on the right that caused it to look "skewed to the left".
     const stave = new Stave(10, 30, 80);
 
-    const clef = note?.clef || 'treble';
+    const clef = notes.length > 0 ? notes[0].clef : 'treble';
     stave.addClef(clef);
     stave.setContext(context).draw();
 
-    if (note) {
-      const keys = [`${note.name.toLowerCase()}/${note.octave}`];
+    if (notes.length > 0 && !hidden) {
+      const keys = notes.map(n => `${n.name.toLowerCase()}/${n.octave}`);
       
       const staveNote = new StaveNote({
         clef: clef,
@@ -68,8 +69,22 @@ export default function Staff({ note, status }: StaffProps) {
       svg.style.width = '100%';
       svg.style.height = 'auto';
       svg.style.maxHeight = '280px';
+      
+      if (hidden) {
+        // Draw a giant question mark
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', '50');
+        text.setAttribute('y', '95'); // visually centered on the staff
+        text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('font-size', '60');
+        text.setAttribute('font-weight', 'bold');
+        text.setAttribute('font-family', 'sans-serif');
+        text.setAttribute('fill', 'var(--note-color)');
+        text.textContent = '?';
+        svg.appendChild(text);
+      }
     }
-  }, [note, status]);
+  }, [notes, status, hidden]);
 
   return (
     <div 

@@ -24,7 +24,39 @@
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.tabBtn {
+  background: transparent;
+  border: none;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--foreground);
+  opacity: 0.6;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.tabBtn:hover {
+  opacity: 1;
+}
+
+.tabBtn.tabActive {
+  opacity: 1;
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
 }
 
 .header h1 {
@@ -99,6 +131,24 @@
 .toggleBtn.active {
   background: var(--primary);
   color: var(--surface);
+}
+
+.replayBtn {
+  margin: 0.5rem auto 1.5rem auto;
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 30px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 10px rgba(56, 189, 248, 0.3);
+  transition: transform 0.1s;
+  cursor: pointer;
+}
+
+.replayBtn:active {
+  transform: scale(0.95);
 }
 
 .gameArea {

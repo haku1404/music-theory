@@ -90,6 +90,35 @@ export const getRandomNote = (clef: 'treble' | 'bass' | 'both'): Note => {
   return pool[index];
 };
 
+const ALL_NOTE_NAMES: NoteName[] = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
+
+export const getNoteByInterval = (baseNote: Note, intervalNumber: number): Note => {
+  // intervalNumber is typically 2 to 8
+  const baseIndex = ALL_NOTE_NAMES.indexOf(baseNote.name);
+  const steps = intervalNumber - 1; 
+  
+  let targetIndex = baseIndex + steps;
+  let targetOctave = baseNote.octave;
+  
+  while (targetIndex >= ALL_NOTE_NAMES.length) {
+    targetIndex -= ALL_NOTE_NAMES.length;
+    targetOctave++;
+  }
+  
+  return {
+    name: ALL_NOTE_NAMES[targetIndex],
+    octave: targetOctave,
+    clef: baseNote.clef
+  };
+};
+
+export const getRandomIntervalNotes = (clef: 'treble' | 'bass' | 'both'): { notes: Note[], interval: number } => {
+  const baseNote = getRandomNote(clef);
+  const interval = Math.floor(Math.random() * 7) + 2; // 2 to 8
+  const topNote = getNoteByInterval(baseNote, interval);
+  return { notes: [baseNote, topNote], interval };
+};
+
 /**
  * Check if a note needs ledger lines
  */
@@ -157,6 +186,21 @@ export const playNote = async (note: Note) => {
   
   if (pianoSampler && pianoSampler.loaded) {
     pianoSampler.triggerAttackRelease(`${note.name}${note.octave}`, "2n");
+  }
+};
+
+export const playNotes = async (notes: Note[]) => {
+  if (typeof window === 'undefined') return;
+  
+  await ensureAudioRunning();
+  
+  if (!pianoSampler) {
+    await initAudio();
+  }
+  
+  if (pianoSampler && pianoSampler.loaded) {
+    const keys = notes.map(n => `${n.name}${n.octave}`);
+    pianoSampler.triggerAttackRelease(keys, "2n");
   }
 };
 

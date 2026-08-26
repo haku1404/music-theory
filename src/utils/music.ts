@@ -122,60 +122,57 @@ export const setSoundEnabled = (enabled: boolean) => {
 
 export const getSoundEnabled = () => isSoundEnabled;
 
-export const unlockAudio = async () => {
+export const ensureAudioRunning = async () => {
   if (typeof window === 'undefined') return;
-  await Tone.start();
+  if (Tone.context.state !== 'running') {
+    await Tone.start();
+  }
 };
+
+let synth: Tone.PolySynth | null = null;
 
 export const initAudio = async () => {
   if (typeof window === 'undefined') return;
-  if (pianoSampler) return;
+  if (synth) return;
 
-  pianoSampler = new Tone.Sampler({
-    urls: {
-      A0: "A0.mp3", C1: "C1.mp3", "D#1": "Ds1.mp3", "F#1": "Fs1.mp3",
-      A1: "A1.mp3", C2: "C2.mp3", "D#2": "Ds2.mp3", "F#2": "Fs2.mp3",
-      A2: "A2.mp3", C3: "C3.mp3", "D#3": "Ds3.mp3", "F#3": "Fs3.mp3",
-      A3: "A3.mp3", C4: "C4.mp3", "D#4": "Ds4.mp3", "F#4": "Fs4.mp3",
-      A4: "A4.mp3", C5: "C5.mp3", "D#5": "Ds5.mp3", "F#5": "Fs5.mp3",
-      A5: "A5.mp3", C6: "C6.mp3", "D#6": "Ds6.mp3", "F#6": "Fs6.mp3",
-      A6: "A6.mp3", C7: "C7.mp3", "D#7": "Ds7.mp3", "F#7": "Fs7.mp3",
-      A7: "A7.mp3", C8: "C8.mp3"
+  // Use a synthesized piano instead of downloading 30 MP3 files
+  // This guarantees instant playback on mobile networks without 10s delays!
+  synth = new Tone.PolySynth(Tone.Synth).toDestination();
+  synth.set({
+    oscillator: { type: 'triangle' }, // Triangle wave sounds close to an electric piano
+    envelope: {
+      attack: 0.005,
+      decay: 0.1,
+      sustain: 0.3,
+      release: 1
     },
-    release: 1,
-    baseUrl: "https://tonejs.github.io/audio/salamander/"
-  }).toDestination();
-  
-  await Tone.loaded();
+    volume: -5
+  });
 };
 
 export const playNote = async (note: Note) => {
   if (!isSoundEnabled || typeof window === 'undefined') return;
   
-  if (Tone.context.state !== 'running') {
-    await Tone.context.resume();
-  }
+  await ensureAudioRunning();
   
-  if (!pianoSampler) {
+  if (!synth) {
     await initAudio();
   }
   
-  if (pianoSampler && pianoSampler.loaded) {
-    pianoSampler.triggerAttackRelease(`${note.name}${note.octave}`, "2n");
+  if (synth) {
+    synth.triggerAttackRelease(`${note.name}${note.octave}`, "4n");
   }
 };
 
 export const playWrongSound = async () => {
   if (!isSoundEnabled || typeof window === 'undefined') return;
 
-  if (Tone.context.state !== 'running') {
-    await Tone.context.resume();
-  }
+  await ensureAudioRunning();
   
-  const synth = new Tone.PolySynth(Tone.Synth).toDestination();
-  synth.volume.value = -12;
+  const wrongSynth = new Tone.PolySynth(Tone.Synth).toDestination();
+  wrongSynth.volume.value = -12;
   // A subtle dissonant cluster to indicate wrong note without being too harsh
-  synth.triggerAttackRelease(["C3", "C#3"], "16n");
+  wrongSynth.triggerAttackRelease(["C3", "C#3"], "16n");
 };
 
 
